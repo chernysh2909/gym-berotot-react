@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from "react";
+import {Header} from "./components/Header";
+import {Home} from "./components/Home";
+import {Logos} from "./components/Logos";
+import {Program} from "./components/Program";
+import {Choose} from "./components/Choose";
+import {Calculate} from "./components/Calculate";
+import {Footer} from "./components/Footer";
+import {Pricing} from "./components/Pricing";
 
 function App() {
+
+  const [scrollTop, setScropllTop] = React.useState(false)
+
+  useEffect(()=>{
+    const scrollUp = ()=>{
+      setScropllTop(window.scrollY >= 350)
+    }
+    window.addEventListener('scroll', scrollUp)
+    return () => {window.removeEventListener('scroll', scrollUp)}
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header/>
+      <main className="main">
+        <Home/>
+        <Logos/>
+        <Program/>
+        <Choose/>
+        <Pricing/>
+        <Calculate/>
+      </main>
+      <Footer/>
+
+      <a href="#" className={`scrollup ${scrollTop? 'show-scroll' : ''}`} id="scroll-up">
+        <i className="ri-arrow-up-line"></i>
+      </a>
+    </>
   );
 }
 
